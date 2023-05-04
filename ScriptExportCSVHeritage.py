@@ -18,6 +18,7 @@ BalancePatrimoine = {'ID':[],"Date_last_sync" :[], "Date_extract" : [],"Nom":[],
 
 # Afficher l'objet JSON UC sous forme de dictionnaire Python
 for i in range(len(json_data_UC["result"])):
+    print("dev test")
     BalancePatrimoine["ID"].append(json_data_UC["result"][i]["id"])
 
     BalancePatrimoine["Date_last_sync"].append(json_data_UC["result"][i]["last_sync"])
