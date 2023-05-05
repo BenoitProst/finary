@@ -10,7 +10,7 @@ pip install -r requirements.txt
 
 python -m finary_api signin
 
-python -m finary_api holdings_accounts > BalanceHeritageUC.json
+python -m finary_api holdings_accounts > Data/BalanceHeritageUC.json
 
 
 python ScriptExportCSVHeritage.py
