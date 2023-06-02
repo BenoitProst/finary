@@ -57,13 +57,15 @@ dfComptes = pd.read_excel('Param/Description_Comptes.xlsx')
 # fusionner les deux DataFrame sur la colonne "ID"
 dfAgregat = pd.merge(df, dfComptes, on='ID', how='left')
 
-dfGrouped = dfAgregat.groupby('Agregat1').agg(Date_last_sync = ('Date_last_sync', 'first'), Date_extract = ('Date_extract', 'first'), Organisme =('Organisme', 'first'), Produit =('Produit', 'first'), Solde = ('Solde', 'sum'))
+dfGrouped = dfAgregat.groupby('Agregat1').agg(Date_last_sync = ('Date_last_sync', 'first'), Date_extract = ('Date_extract', 'first'), Agregat1_ID = ('Agregat1_ID', 'first'), Organisme =('Organisme', 'first'), Produit =('Produit', 'first'), Solde = ('Solde', 'sum'))
 
+dfGrouped['Week_number'] = dfGrouped['Date_extract'].dt.isocalendar().week
 
 #Concatenation des dataframes
 dfConcat = pd.read_csv('Data/Solde_Patrimoine.csv')
 
 dfConcat['Date_last_sync'] = pd.to_datetime(dfConcat['Date_last_sync']).dt.tz_localize(None)
+dfConcat['Date_extract'] = pd.to_datetime(dfConcat['Date_extract']).dt.tz_localize(None)
 
 dfConcat = pd.concat([dfConcat, dfGrouped], ignore_index=True, sort=False)
 
