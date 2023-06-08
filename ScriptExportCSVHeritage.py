@@ -32,19 +32,6 @@ for i in range(len(json_data_UC["result"])):
     BalancePatrimoine["Solde"].append(json_data_UC["result"][i]["balance"])
 
 
-# Afficher l'objet JSON Fonds Euro sous forme de dictionnaire Python
-# for i in range(len(json_data_fonds_euro["result"])):
-    
-    # BalancePatrimoine["ID"].append(json_data_fonds_euro["result"][i]["account"]["id"])
-
-    # BalancePatrimoine["Date"].append(json_data_fonds_euro["result"][i]["account"]["last_sync"])
-
-    # BalancePatrimoine["Nom"].append(json_data_fonds_euro["result"][i]["account"]["name"])
-
-    # BalancePatrimoine["Type"].append("Fonds Euro")
-
-    # BalancePatrimoine["Solde"].append(json_data_fonds_euro["result"][i]["account"]["balance"])
-
 # Convertir le dictionnaire en DataFrame
 df = pd.DataFrame(BalancePatrimoine)
 
@@ -61,14 +48,15 @@ dfGrouped = dfAgregat.groupby('Agregat1').agg(Date_last_sync = ('Date_last_sync'
 
 dfGrouped['Week_number'] = dfGrouped['Date_extract'].dt.isocalendar().week
 
-#Concatenation des dataframes
-dfConcat = pd.read_csv('Data/Solde_Patrimoine.csv')
-
-dfConcat['Date_last_sync'] = pd.to_datetime(dfConcat['Date_last_sync']).dt.tz_localize(None)
-dfConcat['Date_extract'] = pd.to_datetime(dfConcat['Date_extract']).dt.tz_localize(None)
-
-dfConcat = pd.concat([dfConcat, dfGrouped], ignore_index=True, sort=False)
 
 
-dfConcat.to_csv('Data/Solde_Patrimoine.csv', sep=',', encoding='utf-8', index=False)
-dfConcat.to_excel('Data/Solde_Patrimoine.xlsx', sheet_name='Feuille1', index=False)
+# append data frame to CSV file
+dfGrouped.to_csv('Data/Solde_Patrimoine.csv', mode='a', index=False, header=False)
+
+# Update Excel Solde File
+dfExcel = pd.read_csv('Data/Solde_Patrimoine.csv')
+
+dfExcel['Date_last_sync'] = pd.to_datetime(dfExcel['Date_last_sync']).dt.tz_localize(None)
+dfExcel['Date_extract'] = pd.to_datetime(dfExcel['Date_extract']).dt.tz_localize(None)
+
+dfExcel.to_excel('Data/Solde_Patrimoine.xlsx', sheet_name='Feuille1', index=False)
