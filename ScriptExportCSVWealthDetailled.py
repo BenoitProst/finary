@@ -6,6 +6,8 @@ import datetime
 
 dfComptes = pd.read_excel('Param/Description_Comptes.xlsx')
 
+Date_Extract = datetime.datetime.now()
+
 # Construction partie UC
 
 ## Ouvrir le fichier détaillé en mode lecture
@@ -24,7 +26,7 @@ for l in range(len(json_data_detailled['result']['accounts'])):
         
         BalancePatrimoine_detailled["Date_last_sync"].append(json_data_detailled['result']['accounts'][l]['last_sync'])
 
-        BalancePatrimoine_detailled["Date_extract"].append(datetime.datetime.now())
+        BalancePatrimoine_detailled["Date_extract"].append(Date_Extract)
         
         BalancePatrimoine_detailled["Actif"].append(json_data_detailled['result']['accounts'][l]["securities"][i]['security']["name"])
         
@@ -71,7 +73,7 @@ for l in range(len(json_data_FondsEuros['result'])):
     
     BalancePatrimoine_FondsEuros["Date_last_sync"].append(json_data_FondsEuros['result'][l]['bank_account']['last_sync'])
     
-    BalancePatrimoine_FondsEuros["Date_extract"].append(datetime.datetime.now())
+    BalancePatrimoine_FondsEuros["Date_extract"].append(Date_Extract)
     
     BalancePatrimoine_FondsEuros["Actif"].append(json_data_FondsEuros['result'][l]['bank_account']['name'])
     
