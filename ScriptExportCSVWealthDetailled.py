@@ -96,7 +96,7 @@ df_brut['Date_extract'] = pd.to_datetime(df_brut['Date_extract']).dt.tz_localize
 # fusionner les deux DataFrame sur la colonne "ID"
 dfAgregat = pd.merge(df_brut, dfComptes, on='ID', how='left')
 
-dfAgregat = dfAgregat.dropna()
+dfAgregat = dfAgregat.dropna(subset=['Agregat1_ID'])
 
 #Aggrégation
 dfGroupedFondsEuros = dfAgregat.groupby(['Agregat1_ID' , 'Actif']).agg(Date_last_sync = ('Date_last_sync', 'first'), Date_extract = ('Date_extract', 'first'), Agregat1_ID = ('Agregat1_ID', 'first'), Organisme =('Organisme', 'first'), Produit =('Produit', 'first'), ISIN = ('ISIN', 'first'), Actif = ('Actif', 'first'), Type =  ('Type', 'first'), Prix_unitaire = ('Prix unitaire', 'first'), Quantité = ('Quantité', 'first'), Montant_Solde = ('Montant Solde', 'sum'))
