@@ -34,9 +34,9 @@ def home():
 if __name__ == '__main__':
     
     schedulerExportWealth.add_job(id = 'ExportWealth', func=ExportCSVWealth, args=[dfComptes], trigger='cron',day_of_week='1-5', hour='23',minute=1)
-    schedulerExportWealth.add_job(id = 'ExportWealthDetailled', func=ExportCSVWealthDetailled, args=[dfComptes], trigger='cron',day_of_week='1-5', hour='23',minute=10)
-    schedulerExportWealth.add_job(id = 'ExportWealthEndofMonth', func=ExportCSVWealth, args=[dfComptes], trigger='cron',day='last', hour='23',minute=15)
-    schedulerExportWealth.add_job(id = 'ExportWealthDetailledEndofMonth', func=ExportCSVWealthDetailled, args=[dfComptes], trigger='cron',day='last', hour='23',minute=20)
+    # schedulerExportWealth.add_job(id = 'ExportWealthDetailled', func=ExportCSVWealthDetailled, args=[dfComptes], trigger='cron',day_of_week='1-5', hour='23',minute=10)
+    # schedulerExportWealth.add_job(id = 'ExportWealthEndofMonth', func=ExportCSVWealth, args=[dfComptes], trigger='cron',day='last', hour='23',minute=15)
+    # schedulerExportWealth.add_job(id = 'ExportWealthDetailledEndofMonth', func=ExportCSVWealthDetailled, args=[dfComptes], trigger='cron',day='last', hour='23',minute=20)
     
     
     schedulerExportWealth.start()
